@@ -1,0 +1,170 @@
+/* YECO — design tokens + base */
+:root {
+  /* Ink / surface (warm neutrals) */
+  --ink: oklch(0.22 0.018 155);
+  --ink-2: oklch(0.42 0.02 155);
+  --ink-3: oklch(0.58 0.02 155);
+  --ink-4: oklch(0.75 0.015 155);
+  --line: oklch(0.92 0.01 155);
+  --line-2: oklch(0.88 0.012 155);
+  --bg: oklch(0.985 0.006 120);
+  --bg-2: oklch(0.965 0.012 125);
+  --card: #ffffff;
+
+  /* Brand */
+  --leaf: oklch(0.52 0.12 155);
+  --leaf-deep: oklch(0.38 0.10 155);
+  --leaf-soft: oklch(0.94 0.04 150);
+  --lime: oklch(0.86 0.17 128);
+  --lime-soft: oklch(0.96 0.07 128);
+  --amber: oklch(0.78 0.14 75);
+  --amber-soft: oklch(0.96 0.06 80);
+  --clay: oklch(0.65 0.14 40);
+  --clay-soft: oklch(0.95 0.04 45);
+  --danger: oklch(0.62 0.18 27);
+
+  /* radii */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* shadow */
+  --shadow-sm: 0 1px 2px rgba(20, 40, 30, 0.04), 0 2px 6px rgba(20, 40, 30, 0.04);
+  --shadow-md: 0 4px 14px rgba(20, 40, 30, 0.06), 0 2px 4px rgba(20, 40, 30, 0.04);
+  --shadow-lg: 0 12px 32px rgba(20, 40, 30, 0.08), 0 2px 8px rgba(20, 40, 30, 0.04);
+}
+
+[data-theme="dark"] {
+  --ink: oklch(0.96 0.01 155);
+  --ink-2: oklch(0.82 0.015 155);
+  --ink-3: oklch(0.66 0.02 155);
+  --ink-4: oklch(0.5 0.02 155);
+  --line: oklch(0.28 0.015 155);
+  --line-2: oklch(0.32 0.02 155);
+  --bg: oklch(0.18 0.015 155);
+  --bg-2: oklch(0.22 0.015 155);
+  --card: oklch(0.24 0.018 155);
+  --leaf-soft: oklch(0.32 0.06 155);
+  --lime-soft: oklch(0.3 0.08 128);
+  --amber-soft: oklch(0.32 0.06 75);
+  --clay-soft: oklch(0.3 0.06 45);
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  color: var(--ink);
+  background: #eef2ed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+/* App-wide screen */
+.screen {
+  background: var(--bg);
+  color: var(--ink);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.screen-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.screen-scroll::-webkit-scrollbar { display: none; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Pills / chips */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 26px; padding: 0 10px;
+  border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 600;
+  background: var(--leaf-soft); color: var(--leaf-deep);
+}
+
+/* Buttons */
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  font-family: inherit; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary {
+  height: 52px; padding: 0 24px; border-radius: var(--r-pill);
+  background: var(--leaf); color: #fff; font-size: 15px;
+  box-shadow: 0 4px 14px oklch(0.52 0.12 155 / 0.3);
+}
+.btn-secondary {
+  height: 52px; padding: 0 24px; border-radius: var(--r-pill);
+  background: var(--leaf-soft); color: var(--leaf-deep); font-size: 15px;
+}
+.btn-ghost {
+  height: 44px; padding: 0 16px; border-radius: var(--r-pill);
+  background: transparent; color: var(--ink); font-size: 14px;
+}
+
+/* Haptic-ish scale */
+.tap { transition: transform 0.15s ease; }
+.tap:active { transform: scale(0.97); }
+
+/* Dotted divider */
+.divider {
+  height: 1px; background: var(--line);
+}
+
+/* Custom scrollbar hidden */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Skeleton shimmer */
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* Page transition */
+@keyframes slideIn {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.page-enter { animation: slideIn 0.28s ease-out; }
+
+/* Liquid wave for bin viz */
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* Pulse */
+@keyframes pulse-ring {
+  0% { transform: scale(0.85); opacity: 1; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* Sheet */
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
